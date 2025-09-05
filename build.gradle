@@ -1,0 +1,54 @@
+buildscript{
+    ext {
+        springBootVersion = '2.7.18'
+    }
+    repositories{
+        mavenCentral()
+        jcenter()
+    }
+    dependencies{
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+// 프로젝트 의존성 관리를 위한 설정
+// ext라는 키워드는 build.gradle에서 사용하는 전역변수를 설정하겠다는 의미
+// spirngBootVersion 전역변수를 생성하고 그 값을 설정
+// spring-boot-gradle-plugin에서는 그 전역변수를 의존성으로 받겠다는 의미
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management' // 스프링부트의 의존성을 관리해주는 플러그인으로 꼭 설정
+// 4개의 플러그인은 자바와 스프링 부트를 사용하기 위해서는 필수 플러그인들
+
+group = "com.jojoldu.book"
+version = "1.0-SNAPSHOT"
+sourceCompatibility = 1.8
+
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation(platform("org.junit:junit-bom:5.10.0"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    //버전을 명시하지 않아야 위의 springBootVersion을 따라가게 됨
+
+}
+//repositories 는 각종 의존성(라이브러리)들을 어떤 원격 저장소에서 받을지를 정함
+//기본적으로 mavenCentral을 많이 사용하지만, 최근에는 jcenter도 많이 사용함(라이브러리 업로드 난이도 때문에)
+//Jcenter 이제 사용 안 한다고 함 오래된 책이라 내용 다름
+// mavenCentral은 본인이 만든 라이브러리를 업로드하기 위해서는 정말 많은 과정과 설정이 필요함
+// dependencies 는 프로젝트 개발에 필요한 의존성들을 선언하는 곳
+// 인텔리제이는 메이븐 저장소의 데이터를 인덱싱해서 관리하기 때문에
+// 커뮤니티 버전을 사용해도 의조성 자동완성이 가능하다
+
+
+tasks.test {
+    useJUnitPlatform()
+}
