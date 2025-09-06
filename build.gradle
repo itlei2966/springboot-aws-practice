@@ -23,7 +23,7 @@ apply plugin: 'io.spring.dependency-management' // 스프링부트의 의존성�
 
 group = "com.jojoldu.book"
 version = "1.0-SNAPSHOT"
-sourceCompatibility = 1.8
+sourceCompatibility = JavaVersion.VERSION_17
 
 
 repositories {
@@ -34,9 +34,12 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
     //버전을 명시하지 않아야 위의 springBootVersion을 따라가게 됨
 
 }
