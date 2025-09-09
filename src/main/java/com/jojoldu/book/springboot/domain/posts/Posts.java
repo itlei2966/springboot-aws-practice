@@ -40,4 +40,10 @@ public class Posts { // 실제 DB의 테이블과 매칭될 클래스 Entity 클
     // Setter 없이 어떻게 값을 채워 DB에 삽입하나?
     // 빌더 클래스를 사용 - 생성시점에 값을 채워 줌 생성자의 경우 채워야 할 필드가 무엇인지 명확히 지정할 수 없음
     //
+
+    public void update(String title, String content)
+    {
+        this.title = title;
+        this.content = content;
+    }
 }
