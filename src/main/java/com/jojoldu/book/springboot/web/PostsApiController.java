@@ -7,6 +7,7 @@ import com.jojoldu.book.springboot.web.dto.PostsSaveRequestDto;
 import com.jojoldu.book.springboot.web.dto.PostsUpdateRequestDto;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -37,4 +38,12 @@ public class PostsApiController  {
         return postsService.findById(id);
     }
 
+    //post  삭제
+    @DeleteMapping("/api/v1/posts/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public  Long delete(@PathVariable Long id)
+    {
+        postsService.delete(id);
+        return id;
+    }
 }
