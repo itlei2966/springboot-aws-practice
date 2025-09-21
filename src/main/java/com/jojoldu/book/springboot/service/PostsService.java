@@ -2,12 +2,16 @@ package com.jojoldu.book.springboot.service;
 
 import com.jojoldu.book.springboot.domain.posts.Posts;
 import com.jojoldu.book.springboot.domain.posts.PostsRepository;
+import com.jojoldu.book.springboot.web.dto.PostsListResponseDto;
 import com.jojoldu.book.springboot.web.dto.PostsResponseDto;
 import com.jojoldu.book.springboot.web.dto.PostsSaveRequestDto;
 import com.jojoldu.book.springboot.web.dto.PostsUpdateRequestDto;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -49,5 +53,15 @@ public class PostsService {
 
         postsRepository.delete(posts);
     }
+
+    @Transactional(readOnly = true)
+    public List<PostsListResponseDto> findAllDesc(){
+        return postsRepository.findAllDesc().stream()
+                .map(PostsListResponseDto::new) // .map(posts -> new PostsListResponseDto(posts))
+                                                // postsRepository 결과로 넘어온 Posts의 Stream을 map을 통해
+                                                // PostsListResponseDto 변환 -> List로 반환하는 메소드
+                .collect(Collectors.toList());
+    }
+
 
 }
